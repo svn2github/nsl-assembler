@@ -1,0 +1,102 @@
+OutFile("Loops.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Loops()
+{
+  DetailPrint("For Loop 1");
+  for ($i = 0, $j = 10; $i < 5 || $j > 0; $i++, $j--)
+  {
+    DetailPrint("$i = ".$i." and $j = ".$j);
+  }
+
+  DetailPrint("For Loop 2");
+  for ($i = 0, $j = 10; $i < 5 && $j > 0; $i++, $j--)
+  {
+    DetailPrint("$i = ".$i." and $j = ".$j);
+  }
+
+  /* Currently even though the code below is not assembled, $k will
+   * still get declared and if $k is not used elsewhere in the script,
+   * $k will be wasting run-time memory. To fix, the assembler will need
+   * to remove $k from the variables list if it is not already used
+   * prior to its use here.
+   */
+  DetailPrint("For Loop 3 (never gets assembled)");
+  for ($k = 0; true && false; $k++)
+  {
+    DetailPrint("$k = ".$k);
+  }
+
+  DetailPrint("For Loop 4");
+  $m = 5;
+  for (; $m >= 0;)
+  {
+    DetailPrint("$m = ".$m);
+    if (true)
+      $m--;
+  }
+
+  DetailPrint("For Loop 5 (same as Loop 4)");
+  $m = 5;
+  for (;;)
+  {
+    DetailPrint("$m = ".$m);
+    if ($m > 0)
+    {
+      $m--;
+      continue;
+    }
+    break;
+  }
+
+  DetailPrint("While Loop 1");
+  $i = 0;
+  while ($i < 9)
+  {
+    DetailPrint("$i = ".$i);
+    $i++;
+  }
+
+  /* Currently this IS assembled even though it will never execute.
+   * Further optimisations could be done here if there are no
+   * assignments or function calls on the left hand side of the && (as
+   * is the case). That however would require a walk of its parse tree
+   * or new code to propogate down the parse tree that there are
+   * assignments or method calls within the tree.
+   */
+  DetailPrint("While Loop 2");
+  while ($i < 9 && false)
+  {
+    DetailPrint("$i = ".$i);
+    $i++;
+  }
+
+  DetailPrint("Do While Loop 1");
+  $i = 0;
+  do
+  {
+    DetailPrint("$i = ".$i);
+    $i++;
+  }
+  while ($i < 5);
+
+  /* Because this only executes once we end up with an unused go-to
+   * label at the top. We cannot simply remove it because of
+   * while(false), as there may well be a 'continue' statement inside
+   * that wants to use the label. Because the assembler writes the
+   * output in a single pass, it is not possible to back-track and
+   * remove the label at a later date. Instead, and because the makensis
+   * compiler issues a "label not used" message, we are forced to
+   * reference the label with StrCmp "" "" 0 [label]. The zero-jump will
+   * always be taken of course.
+   */
+  DetailPrint("Do While Loop 2");
+  $i = 0;
+  do
+  {
+    DetailPrint("This appears once only");
+  }
+  while (false);
+}

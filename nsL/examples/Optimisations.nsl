@@ -1,0 +1,24 @@
+OutFile("Optimisations.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Test()
+{
+  $R0 = 99 * 5 + 9 / 3 * 2;
+  DetailPrint("1. $R0 = ".$R0);
+
+  $R0 = false && true || false && false || true;
+  DetailPrint("2. $R0 = ".$R0);
+
+  $R0 = MessageBox("MB_YESNO", "Hello");
+  DetailPrint("3. $R0 = ".$R0);
+
+  $R0 = (MessageBox("MB_YESNO", "Hello") == "IDYES") == true;
+  DetailPrint("4. $R0 = ".$R0);
+
+  if (MessageBox("MB_YESNO", "Hello") == "IDYES")
+    DetailPrint("5. You clicked Yes");
+  else
+    DetailPrint("5. You clicked No");
+}

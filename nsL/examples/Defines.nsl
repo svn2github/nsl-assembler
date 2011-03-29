@@ -1,0 +1,30 @@
+OutFile("Defines.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Test()
+{
+  #define val1 5
+  #define op `>`
+  #define val2 6
+  #define func `DetailPrint`
+  #define message "hi!"
+
+  if (val1 op val2)
+    func(message);
+
+  #define concat1 'Hi, my '
+  #define concat2 'name is '
+  #define concat3 'Stuart'
+  #define concat `"`.concat1.concat2.concat3.`"`
+  DetailPrint(concat);
+
+  #define math 99 + (55 - 2) * 3
+  DetailPrint(math);
+
+  #define math1 `99 +`
+  #define math2 `(55 -`
+  #define math3 `2) * 3`
+  DetailPrint(math1 math2 math3);
+}

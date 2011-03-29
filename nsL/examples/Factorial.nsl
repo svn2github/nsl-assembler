@@ -1,0 +1,20 @@
+OutFile("Factorial.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+/*
+  Modified from http://introcs.cs.princeton.edu/23recursion/Fibonacci.java.html
+*/
+function fact($n)
+{
+  if ($n <= 1)
+    return 1;
+  return $n * fact($n - 1);
+}
+
+section Fib()
+{
+  #define Factorial 4
+  DetailPrint("fact(".Factorial.") = ".fact(Factorial));
+}

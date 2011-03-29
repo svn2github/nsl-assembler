@@ -1,0 +1,84 @@
+OutFile("Logic.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Test()
+{
+  if (!((MessageBox("MB_YESNO", "Click a button!") == "IDYES") == false))
+    DetailPrint("1. You clicked Yes");
+  else
+    DetailPrint("1. You clicked No");
+
+  // Should be true
+  $R0 = 0;
+  $R1 = 5;
+  if ($R0 > 0 || $R1 > 0)
+    DetailPrint("2. $R0 > 0 || $R1 > 0");
+  else
+    DetailPrint("2. false");
+
+  // Should be true
+  $R0 = 5;
+  $R1 = 0;
+  if ($R0 > 0 || $R1 > 0)
+    DetailPrint("3. $R0 > 0 || $R1 > 0");
+  else
+    DetailPrint("3. false");
+
+  // Should be false
+  $R0 = 0;
+  $R1 = 0;
+  if ($R0 > 0 || $R1 > 0)
+    DetailPrint("4. $R0 > 0 || $R1 > 0");
+  else
+    DetailPrint("4. false");
+
+  // Should be true
+  $R0 = 3;
+  $R1 = 1;
+  if ($R0 > 0 || $R1 > 0 && $R0 == 3)
+    DetailPrint("5. $R0 > 0 || $R1 > 0 && $R0 == 3");
+  else
+    DetailPrint("5. false");
+
+  // Should be false
+  $R0 = 3;
+  $R1 = 0;
+  if (($R0 == 0 || $R1 > 0) && $R0 == 3)
+    DetailPrint("6. ($R0 == 0 || $R1 > 0) && $R0 == 3");
+  else
+    DetailPrint("6. false");
+
+  // Should be true
+  $R0 = 3;
+  $R1 = 5;
+  if (($R0 == 0 || $R1 > 0) && $R0 == 3 && !($R1 == 4 || $R0 == 2))
+    DetailPrint("7. ($R0 == 0 || $R1 > 0) && $R0 == 3 && !($R1 == 4 || $R0 == 2)");
+  else
+    DetailPrint("7. false");
+
+  // Should be true
+  $R0 = 3;
+  $R1 = 5;
+  if (($R0 == 0 || $R1 > 0) && $R0 == 3 && ($R1 == 4 || $R0 == 3))
+    DetailPrint("8. ($R0 == 0 || $R1 > 0) && $R0 == 3 && ($R1 == 4 || $R0 == 3)");
+  else
+    DetailPrint("8. false");
+
+  // Should be false
+  $R0 = 3;
+  $R1 = 5;
+  if (($R0 == 0 || $R1 > 0) && $R0 == 3 && !($R1 == 4 || $R0 == 3))
+    DetailPrint("9. ($R0 == 0 || $R1 > 0) && $R0 == 3 && !($R1 == 4 || $R0 == 3)");
+  else
+    DetailPrint("9. false");
+
+  // Should be false
+  $R0 = 3;
+  $R1 = 5;
+  if (($R0 == 0 || $R1 > 5) && $R0 == 3 || $R1 <= 5 && ($R1 == 4 || $R0 == 2))
+    DetailPrint("10. ($R0 == 0 || $R1 > 0) && $R0 == 3 || $R1 <= 5 && ($R1 == 5 || $R0 == 2)");
+  else
+    DetailPrint("10. false");
+}

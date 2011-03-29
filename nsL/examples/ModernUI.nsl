@@ -1,0 +1,40 @@
+OutFile("ModernUI.exe");
+
+#nsis
+
+  !include MUI2.nsh
+
+  !insertmacro MUI_PAGE_WELCOME
+  !insertmacro MUI_PAGE_COMPONENTS
+  !insertmacro MUI_PAGE_DIRECTORY
+  !insertmacro MUI_PAGE_INSTFILES
+  !insertmacro MUI_PAGE_FINISH
+
+  !insertmacro MUI_LANGUAGE English
+
+#nsisend
+
+section Section1("Section 1")
+{
+
+}
+
+section Section2("Section 2")
+{
+
+}
+
+section Section3("Section 3")
+{
+
+}
+
+#nsis
+
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${Section1} "This is section 1; it does nothing really"
+    !insertmacro MUI_DESCRIPTION_TEXT ${Section2} "This is section 2; this is empty too"
+    !insertmacro MUI_DESCRIPTION_TEXT ${Section3} "This is section 3; so is this"
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+
+#nsisend

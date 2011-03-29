@@ -1,0 +1,43 @@
+OutFile("Switches.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Test()
+{
+  $R0 = 1;
+  switch ($R0)
+  {
+    case 0:
+      DetailPrint("$R0 is 0");
+    case 1:
+      DetailPrint("$R0 is 0 or 1");
+      break;
+    default:
+      DetailPrint("$R0 is neither 0 or 1");
+      break;
+  }
+
+  switch (MessageBox("MB_YESNOCANCEL", "hello"))
+  {
+    case "IDYES":
+      DetailPrint("IDYES");
+      break;
+    case "IDNO":
+      DetailPrint("IDNO");
+      break;
+    default:
+      DetailPrint("IDCANCEL");
+      break;
+  }
+
+  switch (Silent() == true)
+  {
+    case true:
+      DetailPrint(true);
+      break;
+    case false:
+      DetailPrint(false);
+      break;
+  }
+}

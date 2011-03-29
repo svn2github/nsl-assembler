@@ -1,0 +1,8 @@
+OutFile("Test.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Test()
+{
+}

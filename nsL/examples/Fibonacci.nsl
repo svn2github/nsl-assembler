@@ -1,0 +1,20 @@
+OutFile("Fibonacci.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+/*
+  Modified from http://introcs.cs.princeton.edu/23recursion/Fibonacci.java.html
+*/
+function fib($n)
+{
+  if ($n <= 1)
+    return $n;
+  return fib($n - 1) + fib($n - 2);
+}
+
+section Fib()
+{
+  #define FibCount 7
+  DetailPrint("fib(".FibCount.") = ".fib(FibCount));
+}

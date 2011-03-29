@@ -1,0 +1,91 @@
+OutFile("Macros.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Test()
+{
+  // Macro that returns 1 Boolean value.
+  #macro SingleReturnValue()
+    #return true
+  #macroend
+
+  $R0 = SingleReturnValue();
+
+  // Macro that returns 3 integer values.
+  #macro MultiReturnValue()
+    #return (1, 2, 3)
+  #macroend
+
+  // Sets the vars to 1, 2 and 3
+  ($R0, $R1, $R2) = MultiReturnValue();
+
+  // Macro that loops N times ($i = From; $i <= To; $i++) that inserts
+  // Call($i, Arg)
+  #macro MacroLoop(From, To, Call, Arg)
+    #if (From <= To)
+      eval(Call.'(From, Arg)');
+      MacroLoop(From + 1, To, Call, Arg);
+    #endif
+  #macroend
+
+  // The macro to insert in the loop.
+  #macro MyMacro(Count, Arg)
+    DetailPrint(format('{0}: {1}', Count, Arg));
+  #macroend
+
+  // This inserts MyMacro 5 times which prints "Hello world" 5 times.
+  MacroLoop(1, 5, 'MyMacro', 'Hello world');
+
+  // Asks a question to the user.
+  #macro AskQuestion(Question)
+    #return MessageBox("MB_YESNO|MB_ICONQUESTION", Question) == "IDYES"
+  #macroend
+
+  // Tests return values that are jump instructions.
+  if (AskQuestion("Click Yes or No?"))
+    DetailPrint("You clicked Yes!");
+  else
+    DetailPrint("You clicked No!");
+
+  // Sets all registers being assigned to to 0. The number of registers
+  // being assigned to is stored in the assembler-defined Returns macro
+  // constant.
+  #macro ZeroMemory()
+    #return (eval(_ZeroMemory(Returns)))
+  #macroend
+
+  // Recurse macro for the ZeroMemory macro.
+  #macro _ZeroMemory(Count)
+    #if (Count > 1)
+      #return '0, '._ZeroMemory(Count - 1)
+    #else
+      #return '0'
+    #endif
+  #macroend
+
+  // All 4 registers set to 0.
+  ($R0, $R1, $R2) = ZeroMemory();
+  $R4 = ZeroMemory();
+
+  // Macro version of ReadINIStr.
+  #macro MyReadINIStr(INIFile, SectionName, ValueName)
+    #if (Returns != 1)
+      #error "MyReadINIStr returns a value!"
+    #endif
+    #nsis
+      ReadINIStr ${ReturnVar1} "${INIFile}" "${SectionName}" "${ValueName}"
+    #nsisend
+    #return 1
+  #macroend
+
+  $R0 = MyReadINIStr("file.ini", "Section", "Value");
+
+  // Prints $R0 and sets $R0 to itself (which assembles nothing).
+  #macro ReturnVarTest()
+    DetailPrint(returnvar(1));
+    #return returnvar(1)
+  #macroend
+
+  $R0 = ReturnVarTest();
+}
