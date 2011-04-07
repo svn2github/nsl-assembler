@@ -1,0 +1,196 @@
+BrandingText("text");
+  BrandingText "text"
+
+BrandingText("text", "LEFT");
+  BrandingText /TRIMLEFT "text"
+
+------------------------------------------------------------------------
+
+CopyFiles("source", "dest");
+  CopyFiles "source" "dest"
+
+CopyFiles("source", "dest", true);
+  CopyFiles /SILENT "source" "dest"
+
+CopyFiles("source", "dest", true, true);
+  CopyFiles /SILENT /FILESONLY "source" "dest"
+
+CopyFiles("source", "dest", true, true, 99);
+  CopyFiles /SILENT /FILESONLY "source" "dest" 99
+
+------------------------------------------------------------------------
+
+$var = CreateFont("fontFace")
+  CreateFont $var "fontFace"
+
+$var = CreateFont("fontFace", height, weight)
+  CreateFont $var "fontFace" height weight
+
+$var = CreateFont("fontFace", height, weight, true, true, true)
+  CreateFont $var "fontFace" height weight /ITALIC /UNDERLINE /STRIKE
+
+$var = CreateFont("fontFace", height, weight, false, true)
+  CreateFont $var "fontFace" height weight /UNDERLINE
+
+------------------------------------------------------------------------
+
+Delete("file");
+  Delete "file"
+
+Delete("file", true);
+  Delete /REBOOTOK "file"
+
+------------------------------------------------------------------------
+
+DeleteRegKey(rootKey, "subKey");
+  DeleteRegKey rootKey "subKey"
+
+DeleteRegKey(rootKey, "subKey", true);
+  DeleteRegKey /ifempty rootKey "subKey"
+
+------------------------------------------------------------------------
+
+File("inFile");
+  File "inFile"
+
+File("inFile", "outFile");
+  File "/oname=outFile" "inFile"
+
+File("inFile", "outFile", true);
+  File /nonfatal "/oname=outFile" "inFile"
+
+File("inFile", "outFile", true, true);
+  File /nonfatal /a "/oname=outFile" "inFile"
+
+File("inFile", true);
+  File /nonfatal "inFile"
+
+File("inFile", true, true);
+  File /nonfatal /a "inFile"
+
+------------------------------------------------------------------------
+
+FileRecursive("inFile");
+  File /r "inFile"
+
+FileRecursive("inFile", "exclude" ...);
+  File /r /x "exclude" /x ... "inFile"
+
+FileRecursive("inFile", true);
+  File /nonfatal /r "inFile"
+
+FileRecursive("inFile", true, "exclude" ...);
+  File /nonfatal /r /x "exclude" /x ... "inFile"
+
+FileRecursive("inFile", true, true);
+  File /nonfatal /a /r "inFile"
+
+FileRecursive("inFile", true, true, "exclude" ...);
+  File /nonfatal /a /r /x "exclude" /x ... "inFile"
+
+------------------------------------------------------------------------
+
+($var1, $var2) = GetDLLVersion("My.dll");
+  GetDLLVersion "My.dll" $var1 $var2
+
+------------------------------------------------------------------------
+
+AbortCalled()
+  IfAbort ...
+
+------------------------------------------------------------------------
+
+Errors()
+  IfErrors ...
+
+------------------------------------------------------------------------
+
+InstType(true);
+  InstType /NOCUSTOM
+
+InstType(false);
+  InstType /COMPONENTSONLYONCUSTOM
+
+InstType(false, "str");
+  InstType /CUSTOMSTRING=str
+
+InstType("install_type_name");
+  InstType install_type_name
+
+------------------------------------------------------------------------
+
+InstallColors(true);
+  InstallColors /windows
+
+InstallColors("foreground_color", "background_color");
+  InstallColors foreground_color background_color
+
+------------------------------------------------------------------------
+
+LicenseBkColor(true);
+  LicenseBkColor /gray
+
+LicenseBkColor(false);
+  LicenseBkColor /windows
+
+LicenseBkColor("color");
+  LicenseBkColor color
+
+------------------------------------------------------------------------
+
+MessageBox("text");
+  MessageBox MB_OK "text"
+
+MessageBox("MB_OK", "text", "IDOK");
+  MessageBox MB_OK "text" /SD IDOK
+
+if (MessageBox("MB_OK", "text", "IDOK"))
+  MessageBox MB_OK "text" /SD IDOK IDOK _lbl_0
+
+if (MessageBox("MB_OK", "text", "IDOK") && MessageBox("MB_OK", "text", "IDOK"))
+  MessageBox MB_OK "text" /SD IDOK IDOK 0
+  MessageBox MB_OK "text" /SD IDOK IDOK _lbl_0
+
+$var = MessageBox("MB_YESNO|MB_ICONQUESTION", "text");
+  MessageBox MB_YESNO|MB_ICONQUESTION "text" IDNO +3
+  StrCpy $var IDYES
+  Goto +2
+  StrCpy $var IDNO
+
+------------------------------------------------------------------------
+
+ReserveFile("inFile");
+  ReserveFile "inFile"
+
+ReserveFile("inFile", true);
+  ReserveFile /nonfatal "inFile"
+
+------------------------------------------------------------------------
+
+ReserveFileRecursive("inFile");
+  ReserveFile /r "inFile"
+
+ReserveFileRecursive("inFile", true);
+  ReserveFile /nonfatal /r "inFile"
+
+ReserveFileRecursive("inFile", "exclude" ...);
+  ReserveFile /r /x "exclude" /x ... "inFile"
+
+ReserveFileRecursive("inFile", true, "exclude" ...);
+  ReserveFile /nonfatal /r /x "exclude" /x ... "inFile"
+
+------------------------------------------------------------------------
+
+RMDir("directory");
+  RMDir "directory"
+
+RMDir("directory", true);
+  RMDir /REBOOTOK "directory"
+
+------------------------------------------------------------------------
+
+RMDirRecursive("directory");
+  RMDir /r "directory"
+
+RMDirRecursive("directory", true);
+  RMDir /r /REBOOTOK "directory"

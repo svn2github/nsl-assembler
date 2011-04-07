@@ -1,0 +1,10 @@
+OutFile("Test.exe");
+ShowInstDetails("show");
+XPStyle("on");
+RequestExecutionLevel("admin");
+
+section Test()
+{
+  $R0 = NSISdl::download("http://nsis.sourceforge.net/mediawiki/images/4/44/NSISArray.zip", $EXEDIR.@"\NSISArray.zip");
+  DetailPrint($R0);
+}
