@@ -28,7 +28,7 @@ public class ConcatenationExpression extends LogicalExpression
    */
   public ConcatenationExpression(Expression leftOperand, Expression rightOperand)
   {
-    super(leftOperand, new Operator(".", OperatorType.Mathematical), rightOperand);
+    super(leftOperand, ".", rightOperand);
 
     if (leftOperand.type.equals(ExpressionType.StringSpecial) || rightOperand.type.equals(ExpressionType.StringSpecial))
       this.type = ExpressionType.StringSpecial;

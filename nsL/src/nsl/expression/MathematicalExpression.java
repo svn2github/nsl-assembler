@@ -21,7 +21,7 @@ public class MathematicalExpression extends LogicalExpression
    */
   public MathematicalExpression(Expression leftOperand, String operator, Expression rightOperand)
   {
-    super(leftOperand, new Operator(operator, OperatorType.Mathematical), rightOperand);
+    super(leftOperand, operator, rightOperand);
 
     /*if (!(leftOperand instanceof MathematicalExpression) && leftOperand.type != ExpressionType.Register && leftOperand.type != ExpressionType.Integer)
       throw new NslException("The left operand must be an integer or a variable", true);

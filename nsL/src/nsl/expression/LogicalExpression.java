@@ -4,8 +4,6 @@
 
 package nsl.expression;
 
-import nsl.Operator;
-
 /**
  * Describes a logical expression.
  * @author Stuart
@@ -13,7 +11,7 @@ import nsl.Operator;
 public abstract class LogicalExpression extends AssembleExpression
 {
   protected final Expression leftOperand;
-  protected final Operator operator;
+  protected final String operator;
   protected final Expression rightOperand;
 
   /**
@@ -22,7 +20,7 @@ public abstract class LogicalExpression extends AssembleExpression
    * @param operator the operator
    * @param rightOperand the right operand
    */
-  public LogicalExpression(Expression leftOperand, Operator operator, Expression rightOperand)
+  public LogicalExpression(Expression leftOperand, String operator, Expression rightOperand)
   {
     this.leftOperand = leftOperand;
     this.operator = operator;
@@ -42,7 +40,7 @@ public abstract class LogicalExpression extends AssembleExpression
    * Gets the operator.
    * @return the operator
    */
-  public Operator getOperator()
+  public String getOperator()
   {
     return this.operator;
   }
@@ -63,6 +61,6 @@ public abstract class LogicalExpression extends AssembleExpression
   @Override
   public String toString()
   {
-    return "(" + this.leftOperand + " " + this.operator.getOperator() + " " + this.rightOperand + ")";
+    return "(" + this.leftOperand + " " + this.operator + " " + this.rightOperand + ")";
   }
 }

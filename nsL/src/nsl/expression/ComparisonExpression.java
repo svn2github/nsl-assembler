@@ -24,7 +24,7 @@ public class ComparisonExpression extends ConditionalExpression
    */
   public ComparisonExpression(Expression leftOperand, String operator, Expression rightOperand, ComparisonType comparisonType)
   {
-    super(leftOperand, new Operator(operator, OperatorType.Mathematical), rightOperand);
+    super(leftOperand, operator, rightOperand);
     this.comparisonType = comparisonType;
   }
 
@@ -142,7 +142,7 @@ public class ComparisonExpression extends ConditionalExpression
       Register varRight = RegisterList.getCurrent().getNext();
       ((AssembleExpression)this.leftOperand).assemble(varLeft);
       ((AssembleExpression)this.rightOperand).assemble(varRight);
-      assembleCmp(varLeft.toString(), this.operator.getOperator(), varRight.toString(), gotoA, gotoB, this.comparisonType);
+      assembleCmp(varLeft.toString(), this.operator, varRight.toString(), gotoA, gotoB, this.comparisonType);
       varRight.setInUse(false);
       varLeft.setInUse(false);
     }
@@ -150,19 +150,19 @@ public class ComparisonExpression extends ConditionalExpression
     {
       Register varLeft = RegisterList.getCurrent().getNext();
       ((AssembleExpression)this.leftOperand).assemble(varLeft);
-      assembleCmp(varLeft.toString(), this.operator.getOperator(), this.rightOperand.toString(), gotoA, gotoB, this.comparisonType);
+      assembleCmp(varLeft.toString(), this.operator, this.rightOperand.toString(), gotoA, gotoB, this.comparisonType);
       varLeft.setInUse(false);
     }
     else if (this.rightOperand instanceof AssembleExpression)
     {
       Register varRight = RegisterList.getCurrent().getNext();
       ((AssembleExpression)this.rightOperand).assemble(varRight);
-      assembleCmp(this.leftOperand.toString(), this.operator.getOperator(), varRight.toString(), gotoA, gotoB, this.comparisonType);
+      assembleCmp(this.leftOperand.toString(), this.operator, varRight.toString(), gotoA, gotoB, this.comparisonType);
       varRight.setInUse(false);
     }
     else
     {
-      assembleCmp(this.leftOperand.toString(), this.operator.getOperator(), this.rightOperand.toString(), gotoA, gotoB, this.comparisonType);
+      assembleCmp(this.leftOperand.toString(), this.operator, this.rightOperand.toString(), gotoA, gotoB, this.comparisonType);
     }
   }
 }

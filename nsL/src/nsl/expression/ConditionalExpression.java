@@ -19,7 +19,7 @@ public abstract class ConditionalExpression extends LogicalExpression
    * @param operator the operator
    * @param rightOperand the right operand
    */
-  public ConditionalExpression(Expression leftOperand, Operator operator, Expression rightOperand)
+  public ConditionalExpression(Expression leftOperand, String operator, Expression rightOperand)
   {
     super(leftOperand, operator, rightOperand);
     this.type = ExpressionType.Boolean;

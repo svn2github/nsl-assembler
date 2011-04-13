@@ -29,7 +29,7 @@ public class BooleanExpression extends ConditionalExpression
    */
   public BooleanExpression(Expression leftOperand, String operator, Expression rightOperand)
   {
-    super(leftOperand, new Operator(operator, OperatorType.Mathematical), rightOperand);
+    super(leftOperand, operator, rightOperand);
 
     if (!isBooleanExpression(leftOperand))
       throw new NslException("The left operand must be an equality or relational expression", true);
@@ -106,7 +106,7 @@ public class BooleanExpression extends ConditionalExpression
 
     if (this.leftOperand instanceof ComparisonExpression && this.rightOperand instanceof ComparisonExpression)
     {
-      if (this.operator.getOperator().equals("&&"))
+      if (this.operator.equals("&&"))
       {
         ((ConditionalExpression)this.leftOperand).assemble(RelativeJump.Zero, gotoB);
         ((ConditionalExpression)this.rightOperand).assemble(gotoA, gotoB);
@@ -119,7 +119,7 @@ public class BooleanExpression extends ConditionalExpression
     }
     else if (this.leftOperand instanceof ComparisonExpression)
     {
-      if (this.operator.getOperator().equals("&&"))
+      if (this.operator.equals("&&"))
       {
         ((ConditionalExpression)this.leftOperand).assemble(RelativeJump.Zero, gotoB);
         assemble(this.rightOperand, gotoA, gotoB);
@@ -132,7 +132,7 @@ public class BooleanExpression extends ConditionalExpression
     }
     else if (this.rightOperand instanceof ComparisonExpression)
     {
-      if (this.operator.getOperator().equals("&&"))
+      if (this.operator.equals("&&"))
       {
         Label gotoC = LabelList.getCurrent().getNext();
         assemble(this.leftOperand, gotoC, gotoB);
@@ -149,7 +149,7 @@ public class BooleanExpression extends ConditionalExpression
     }
     else
     {
-      if (this.operator.getOperator().equals("&&"))
+      if (this.operator.equals("&&"))
       {
         Label gotoC = LabelList.getCurrent().getNext();
         assemble(this.leftOperand, gotoC, gotoB);
