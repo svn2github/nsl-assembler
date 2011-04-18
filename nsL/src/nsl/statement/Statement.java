@@ -437,7 +437,7 @@ public abstract class Statement
    * Matches the next statement.
    * @return the next statement
    */
-  public static Statement matchInternal()
+  private static Statement matchInternal()
   {
     if (ScriptParser.tokenizer.tokenIsWord())
     {      

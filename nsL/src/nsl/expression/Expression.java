@@ -406,29 +406,33 @@ public class Expression
     }
     else if (ExpressionType.isBoolean(left))
     {
-      if (operator.equals("==") && left.booleanValue == false && right.type == ExpressionType.Boolean)
+      if (operator.equals("==") && right.type == ExpressionType.Boolean)
       {
-        right.booleanValue = !right.booleanValue;
-        return left;
+        if (left.booleanValue == false)
+          right.booleanValue = !right.booleanValue;
+        return right;
       }
-      if (operator.equals("!=") && left.booleanValue == true && right.type == ExpressionType.Boolean)
+      if (operator.equals("!=") && right.type == ExpressionType.Boolean)
       {
-        right.booleanValue = !right.booleanValue;
-        return left;
+        if (left.booleanValue == true)
+          right.booleanValue = !right.booleanValue;
+        return right;
       }
       comparisonType = ComparisonType.String;
     }
     else if (ExpressionType.isBoolean(right))
     {
-      if (operator.equals("==") && right.booleanValue == false && left.type == ExpressionType.Boolean)
+      if (operator.equals("==") && left.type == ExpressionType.Boolean)
       {
-        left.booleanValue = !left.booleanValue;
+        if (right.booleanValue == false)
+          left.booleanValue = !left.booleanValue;
         return left;
       }
-      if (operator.equals("!=") && right.booleanValue == true && left.type == ExpressionType.Boolean)
+      if (operator.equals("!=") && left.type == ExpressionType.Boolean)
       {
-        left.booleanValue = !left.booleanValue;
-        return right;
+        if (right.booleanValue == true)
+          left.booleanValue = !left.booleanValue;
+        return left;
       }
       comparisonType = ComparisonType.String;
     }
